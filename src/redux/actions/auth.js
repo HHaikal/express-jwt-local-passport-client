@@ -5,7 +5,7 @@ export const AuthLogin = (content, history) => {
     return (dispatch, getState) => {
         axios({
             method: 'post',
-            url: 'http://localhost:5000/login',
+            url: '/login',
             data: {
                 email: content.email,
                 password: content.password
