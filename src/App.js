@@ -17,21 +17,30 @@ import Dashboard from "./components/dashboard"
 import AuthRoute from "./route/AuthRoute"
 import GuestRoute from "./route/GuestRoute"
 
+// PART: Apollo CLient
+import ApolloClient from "apollo-boost"
+import { ApolloProvider } from "react-apollo"
+const client = new ApolloClient({
+    uri: '/graphql'
+})
+
 class App extends Component {
     render() {
         return (
-            <Provider store={store} >
-                <PersistGate loading={<Loading />} persistor={persistor}>
-                    <Router>
-                        <Switch>
-                            <Route path="/" component={Home} exact />
-                            <GuestRoute path="/login" component={Login} />
-                            <GuestRoute path="/register" component={Register} />
-                            <AuthRoute path="/dashboard" component={Dashboard} />
-                        </Switch>
-                    </Router>
-                </PersistGate>
-            </Provider >
+            <ApolloProvider client={client}>
+                <Provider store={store} >
+                    <PersistGate loading={<Loading />} persistor={persistor}>
+                        <Router>
+                            <Switch>
+                                <Route path="/" component={Home} exact />
+                                <GuestRoute path="/login" component={Login} />
+                                <GuestRoute path="/register" component={Register} />
+                                <AuthRoute path="/dashboard" component={Dashboard} />
+                            </Switch>
+                        </Router>
+                    </PersistGate>
+                </Provider >
+            </ApolloProvider>
         )
     }
 }
